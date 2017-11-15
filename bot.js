@@ -12,7 +12,6 @@ var customAnswer = [];
 var prefixe = "!";
 var commandList = ['!say', '!shifumi', '!spoil', '!delete', '!spam', '!rename', '!addcommand', '!mute', '!demute', '!stopcommand', '!reusecommand', '!add', 'salut', 'yo', '\\o/', 'clément', 'ping', 'pong', '!see', 'onleye', 'lucas', 'mseza', 'archnova', 'tom', 'skryzad', 'loris', 'nathan', 'rorisu le vrai', '!help'];
 var secretChannel = '';
-var command = '';
 
 client.on('ready', () => {
 
@@ -36,10 +35,13 @@ client.on('presenceUpdate', (oldMember, newMember) => {
 
 client.on('message', message => {
 
+  let command = "";
+  
     if(message.content.startsWith(prefixe)){
 
       command = message.content.split(" ")[0];
       command = command.split(prefixe)[1].toLowerCase();
+      
     }
 
     let word = message.content.toLowerCase();
