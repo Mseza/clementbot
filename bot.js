@@ -359,12 +359,12 @@ client.on('message', message => {
             value: "- **salut** ou **yo** : pour me dire bonjour ;)\n- **ping** : pong \n- **pong** : ping\n- **\\o/** : J’adore lever les mains :)\n- **Une personne du serveur** : ce que je pense de lui\n-"
           },
           {
-            name: "Commandes avec paramètres",
-            value: "- **!add** + *nombres* : fait l’addition de ces nombres\n- **!say** + *message* : je dis le message que tu veux que je dise\n- **!rename** + *pseudo* + *nom* : renomme un membre par un nouveau nom, si aucun nom n’est spécifié, ce sera lui qui sera renommé\n- **!delete** + *nombre* : supprime un certain nombre de message au dessus\n- **!spam** + *nombre* + *message* : spam un certain nombre de fois un message, si aucun nombre n’est spécifié, le message sera spam 10 fois\n- **!spoil** + *message* : créer un spoiler sur ce message en le supprimant, la commande **!see** permet à une personne de voir ce spoiler."
+            name: "Commandes (avec le préfixe !) avec paramètres",
+            value: "- **add** + *nombres* : fait l’addition de ces nombres\n- **say** + *message* : je dis le message que tu veux que je dise\n- **rename** + *membre* + *nom* : renomme un membre par un nouveau nom, si aucun nom n’est spécifié, ce sera l'auteur du message qui sera renommé\n- **delete** + *nombre* : supprime un certain nombre de message au dessus\n- **spam** + *nombre* + *message* : spam un certain nombre de fois un message, si aucun nombre n’est spécifié, le message sera spam 10 fois\n- **spoil** + *message* : créer un spoiler sur ce message en le supprimant, la commande **see** permet à une personne de voir ce spoiler.\n- **shifumi** + *signe* : on fait une partie de shifumi ?\n- **dice** : un nombre aléatoire entre 1 et 6\n- **alea** + *min* + *max* : je choisi un nombre entre le min et le max (inclus)\n- **choose** + *propositions* : sépare plusieurs propositions par un espace, j'en choisira une au hasard \n-**remindme** + *temps* + *message* : je vous rappelerai dans un certain temps (de base en secondes, mais les suffixes -m et -h existent) un certain message"
           }
         ],
         footer: {
-          text: "RAPPEL : Les gros mots sont interdits !"
+          text: "RAPPEL : Je suis le BOSS de ce serveur !"
         }
 
         }
