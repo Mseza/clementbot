@@ -36,48 +36,6 @@ client.on('presenceUpdate', (oldMember, newMember) => {
 
 client.on('message', message => {
 
-  var secretChannel = client.channels.get('380363554722676736');
-
-  if(waitingAnswer === true && message.author === proposingMember){
-
-      awaitedAnswer = message.content;
-      message.reply(" merci d'avoir soumis cette commande, en attente de l'approbation de mon maître");
-      waitingAnswer = false;
-
-      secretChannel.send('La commande suivante a été proposé : ');
-      secretChannel.send(awaitedMessage);
-      secretChannel.send('Avec cette réponse : ');
-      secretChannel.send(awaitedAnswer);
-      secretChannel.send('Approuvez-vous cette commande ?');
-      waitingApprove = true;
-
-  }
-
-  if(message.channel === secretChannel){
-
-    if(waitingApprove === true){
-
-      if(message.content === 'approve'){
-        customMessage.push(awaitedMessage);
-        customAnswer.push(awaitedAnswer);
-        awaitedMessage = '';
-        awaitedAnswer = '';
-        waitingApprove = false;
-        proposingMember.send("La commande que vous avez proposé a été approuvée");
-
-      } else if(message.content === 'disapprove'){
-
-        awaitedMessage = '';
-        awaitedAnswer = '';
-        waitingApprove = false;
-        proposingMember.send("La commande que vous avez proposé a été désapprouvée");
-
-      }
-
-    }
-
-  }
-
     if(message.content.startsWith(prefixe)){
 
       command = message.content.split(" ")[0];
@@ -294,18 +252,6 @@ client.on('message', message => {
         }
 
       }
-      else if(command === 'addcommand'){
-
-        if(message.content != ''){
-
-            awaitedMessage = message.content.split(" ").slice(1).join(" ");
-            message.reply('Tapez ce que je dois répondre à cette phrase');
-            proposingMember = message.author;
-            waitingAnswer = true;
-
-        }
-
-      }
       else if(command === 'add') {
         let numArray = args.split(" ").map(n=> parseInt(n));
         let total = numArray.reduce((p, c) => p+c);
@@ -319,6 +265,55 @@ client.on('message', message => {
 
         }
 
+      }
+      else if(command === "dice"){
+        message.channel.send("J'ai obtenu un **" + Math.floor(Math.random() * 6 + 1) + "** !");
+      }
+      else if(command === "alea"){
+        let min = args.split(" ")[0];
+        let max = args.split(" ")[1];
+        let aléa = Math.floor(Math.random() * (max - min + 1) + min);
+        if(isNaN(aléa) === false && Number.isInteger(parseFloat(min)) === true && Number.isInteger(parseFloat(max)) === true){
+          message.channel.send("J'ai tiré au sort **" + aléa + "** !");
+        }
+      }
+      else if(command === "choose"){
+        args = args.split(" ");
+        let lengthChoices = args.length;
+        let aléa = Math.floor(Math.random() * lengthChoices);
+        message.channel.send("Je choisirai **" + args[aléa] + "** !");
+      }
+      else if(command === "remindme"){
+        let timer = args.split(" ")[0];
+        let multiplicator = 1000;
+        let timerText = "secondes"
+        if(timer.endsWith("s")){
+          timer = timer.split("s")[0];
+          multiplicator = 1000;
+          timerText = "seconde";
+        }
+        else if(timer.endsWith("m")){
+          timer = timer.split("m")[0];
+          multiplicator = 60000;
+          timerText = "minute";
+        }
+        else if(timer.endsWith("s")){
+          timer = timer.split("h")[0];
+          multiplicator = 3600000;
+          timerText = "heure";
+        }
+
+        if(timer > 1){
+          timerText = timerText + "s";
+        }
+
+        let remind = message.content.split(" ").slice(2).join(" ");
+        if(isNaN(timer) === false){
+          message.channel.send("Je vous rappellerai **" + remind + "** dans **" + timer + " " + timerText + "** !");
+          setTimeout(function(){
+            message.channel.send(remind);
+          }, timer * multiplicator);
+        }
       }
       else if (word === '\\o/') {
         message.channel.send('\\o/');
