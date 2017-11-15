@@ -38,7 +38,7 @@ client.on('message', message => {
 
   var secretChannel = client.channels.get('380363554722676736');
 
-  if(waitingAnswer === true){
+  if(waitingAnswer === true && message.author === proposingMember){
 
     if(message.content === ''){
       message.reply('Vous n\'avez pas saisi de réponse, veuillez réessayer');
