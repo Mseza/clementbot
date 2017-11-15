@@ -51,8 +51,6 @@ client.on('message', message => {
       secretChannel.send('Approuvez-vous cette commande ?');
       waitingApprove = true;
 
-    }
-
   }
 
   if(message.channel === secretChannel){
