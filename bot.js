@@ -40,10 +40,6 @@ client.on('message', message => {
 
   if(waitingAnswer === true && message.author === proposingMember){
 
-    if(message.content === ''){
-      message.reply('Vous n\'avez pas saisi de réponse, veuillez réessayer');
-    } else {
-
       awaitedAnswer = message.content;
       message.reply(" merci d'avoir soumis cette commande, en attente de l'approbation de mon maître");
       waitingAnswer = false;
@@ -301,9 +297,9 @@ client.on('message', message => {
 
       }
       else if(command === 'addcommand'){
-        
+
         if(message.content != ''){
-            
+
             awaitedMessage = message.content.split(" ").slice(1).join(" ");
             message.reply('Tapez ce que je dois répondre à cette phrase');
             proposingMember = message.author;
