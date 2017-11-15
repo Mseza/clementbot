@@ -309,8 +309,6 @@ client.on('message', message => {
             proposingMember = message.author;
             waitingAnswer = true;
 
-          }
-
         }
 
       }
