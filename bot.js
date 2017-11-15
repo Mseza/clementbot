@@ -301,23 +301,8 @@ client.on('message', message => {
 
       }
       else if(command === 'addcommand'){
-
-        console.log("1");
-        for(i = 0; i < commandList.length; i++){
-          if(args.startsWith(commandList[i])){
-            message.reply("cette commande existe déjà");
-            break;
-            existing = true;
-          }
-        }
-
-        if(existing === 'false'){
-          
-          console.log("2");
-          
-          if(message.content != ''){
-
-            console.log("3");
+        
+        if(message.content != ''){
             
             awaitedMessage = message.content.split(" ").slice(1).join(" ");
             message.reply('Tapez ce que je dois répondre à cette phrase');
