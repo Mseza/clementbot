@@ -311,7 +311,7 @@ client.on('message', message => {
         if(isNaN(timer) === false){
           message.channel.send("Je vous rappellerai **" + remind + "** dans **" + timer + " " + timerText + "** !");
           setTimeout(function(){
-            message.channel.send(remind);
+            message.reply(remind);
           }, timer * multiplicator);
         }
       }
