@@ -364,7 +364,7 @@ client.on('message', message => {
           },
           {
             name: "Commandes pour faire un choix aléatoire (avec le préfixe \"!\")",
-            value: "- **dice** : je choisirai un nombre aléatoire entre 1 et 6\n- **alea** + *min* + *max* : je choisirai un nombre entre le min et le max (inclus)\n- **choose** + *propositions* : sépare plusieurs propositions par un espace, j'en choisira une au hasard"
+            value: "- **dice** : je lancerai un dé à 6 faces\n- **alea** + *min* + *max* : je choisirai un nombre entre le min et le max (inclus)\n- **choose** + *propositions* : sépare plusieurs propositions par un espace, j'en choisira une au hasard"
           }
         ],
         footer: {
