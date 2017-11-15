@@ -1,8 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-var memberMuted = '';
-var memberNotrespected = '';
 var proposingMember = '';
 var awaitedMessage = '';
 var waitingAnswer = false;
@@ -14,7 +12,7 @@ var customAnswer = [];
 var prefixe = "!";
 var commandList = ['!say', '!shifumi', '!spoil', '!delete', '!spam', '!rename', '!addcommand', '!mute', '!demute', '!stopcommand', '!reusecommand', '!add', 'salut', 'yo', '\\o/', 'clément', 'ping', 'pong', '!see', 'onleye', 'lucas', 'mseza', 'archnova', 'tom', 'skryzad', 'loris', 'nathan', 'rorisu le vrai', '!help'];
 var secretChannel = '';
-var comand = '';
+var command = '';
 
 client.on('ready', () => {
 
@@ -97,34 +95,6 @@ client.on('message', message => {
     let args = message.content.split(" ").slice(1).join(" ").toLowerCase();
 
       if(message.author.bot) return;
-      if(message.author.id === memberMuted){
-
-        message.delete();
-
-      }
-
-    if(message.content === "Unlock access"){
-
-      if (message.author.id === '337176935719370752') {
-
-          message.reply("Vous avez le plein contôl désormais");
-          if(memberNotrespected === '337176935719370752'){
-
-            memberNotrespected = '';
-
-          }
-
-          else if (memberMuted === '337176935719370752') {
-
-            memberMuted = '';
-
-          }
-
-      }
-
-    }
-
-    if(message.author.id != memberNotrespected){
 
       if(command === 'say') {
         message.delete();
@@ -354,87 +324,6 @@ client.on('message', message => {
         }
 
       }
-      else if(command === 'mute') {
-        let memberC = message.mentions.members.first();
-
-        if (message.mentions.users.size === 0) {
-
-          message.reply('vous n\'avez pas défini de personne à mute !');
-
-        }
-
-        else if(!memberC) {
-
-          message.reply('apprend à faire une mention bordel !');
-
-        }
-
-        else if (message.mentions.users.size > 1) {
-
-          message.reply("mec, tu mets qu'un nom à la fois, n'en met pas plein !");
-
-        }
-
-        else if (message.author.id === '337176935719370752') {
-
-          memberMuted = memberC.id;
-          message.channel.send(memberC + ' a été mute');
-
-        }
-
-        else {
-
-          message.reply("mec, t'as cru que tu pouvais mute les autres ?!");
-
-        }
-
-      }
-      else if(word === '!demute') {
-
-        memberMuted = '';
-
-      }
-      else if(command === 'stopcommand') {
-        console.log("ok");
-        let memberCo = message.mentions.members.first();
-
-        if (message.mentions.users.size === 0) {
-
-          message.reply('vous n\'avez pas défini de personne à mute !');
-
-        }
-
-        else if(!memberCo) {
-
-          message.reply('apprend à faire une mention bordel !');
-
-        }
-
-        else if (message.mentions.users.size > 1) {
-
-          message.reply("mec, tu mets qu'un nom à la fois, n'en met pas plein !");
-
-        }
-
-        else if (message.author.id === '337176935719370752') {
-
-          memberNotrespected = memberCo.id;
-          message.channel.send(memberCo + ' ne peux plus utlisé de commandes');
-
-        }
-
-        else {
-
-          message.reply("mec, t'as cru que tu pouvais mute les autres ?!");
-
-        }
-
-      }
-      else if(word === '!reusecommand') {
-
-        memberNotrespected = '';
-
-      }
       else if(command === 'add') {
         let numArray = args.split(" ").map(n=> parseInt(n));
         let total = numArray.reduce((p, c) => p+c);
@@ -518,8 +407,6 @@ client.on('message', message => {
         }
 
       }
-
-    }
 
   });
 
