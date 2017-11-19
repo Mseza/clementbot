@@ -1,21 +1,21 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-var proposingMember = '';
-var awaitedMessage = '';
-var waitingAnswer = false;
-var existing = false;
-var awaitedAnswer = '';
-var waitingApprove = false;
-var customMessage = [];
-var customAnswer = [];
-var prefixe = "!";
-var commandList = ['!say', '!shifumi', '!spoil', '!delete', '!spam', '!rename', '!addcommand', '!mute', '!demute', '!stopcommand', '!reusecommand', '!add', 'salut', 'yo', '\\o/', 'clément', 'ping', 'pong', '!see', 'onleye', 'lucas', 'mseza', 'archnova', 'tom', 'skryzad', 'loris', 'nathan', 'rorisu le vrai', '!help'];
-var secretChannel = '';
+let dico = ["chien", "livre", "meuble", "ordinateur", "lit", "fleur", "jambe", "bras", "ossement", "bougie"];
+let wordSelected = "";
+let letterKnown = [''];
+let actualWord = "";
+let player = "";
+let isPlaying = false;
+let essai = 9;
+let letterInWord = false;
+let yetLetter = false;
+let gameChannel = "";
 
 client.on('ready', () => {
 
   console.log('I am ready!');
+  gameChannel = client.channels.get('381565314376138762');
 
 });
 
@@ -317,6 +317,61 @@ client.on('message', message => {
           }, timer * multiplicator);
         }
       }
+      else if(message.channel = gameChannel){
+        
+        if(command === "pendu"){
+
+          if(isPlaying === true){
+
+            message.channel.send("Une partie est déjà en cours");
+
+          } else {
+
+            wordSelected = dico[Math.floor(Math.random() * (dico.length))];
+            isPlaying = true;
+            player = message.author;
+            rewrite();
+            endTurn();
+
+          }
+
+        }
+        else if (isPlaying === true && message.author === player) {
+
+          yetLetter = false;
+
+          for(i = 0; i < dico.length; i++){
+
+            if(letterKnown[i] === command){
+
+              yetLetter = true;
+
+            }
+
+          }
+
+          if(command.length > 1){
+
+            message.reply("vous avez saisi plus d'un caractère");
+
+          } else if(command.toUpperCase() === command){
+
+            message.reply("vous avez saisi un caractère invalide");
+
+          } else if(yetLetter === true) {
+
+            message.reply("vous avez déjà saisi ce caractère");
+
+          } else {
+
+            checkLetter(command);
+            endTurn();
+
+          }
+          
+        }
+
+      }
       else if (word === '\\o/') {
         message.channel.send('\\o/');
       }
@@ -392,5 +447,98 @@ client.on('message', message => {
       }
 
   });
+
+function checkLetter (letter) {
+
+  letterInWord = false;
+
+  for(i = 0; i < wordSelected.length; i++){
+
+    if(wordSelected.substr(i, 1) === letter){
+
+        letterKnown.push(letter);
+        letterInWord = true;
+        rewrite();
+        break;
+
+    }
+
+  }
+
+  if(letterInWord === false){
+
+    essai -= 1;
+
+  }
+
+}
+
+function rewrite () {
+
+  let foundLetter = false;
+  actualWord = "";
+
+  for(i = 0; i < wordSelected.length; i++){
+
+    foundLetter = false;
+
+    for(g = 0; g < letterKnown.length; g++){
+      if(wordSelected.substr(i, 1) === letterKnown[g]){
+
+          foundLetter = true;
+          actualWord = actualWord + letterKnown[g];
+
+      }
+
+    }
+
+    if(foundLetter === false){
+
+      actualWord = actualWord + "- ";
+
+    }
+
+  }
+
+}
+
+function endTurn () {
+
+  let str = " essai";
+  if(essai > 1){
+
+    str = str + "s";
+
+  }
+
+  if(essai <= 0){
+
+    gameChannel.send("Vous avez *perdu* ! Le mot à trouver était **" + wordSelected + "**");
+    endGame();
+
+  }
+
+  else if(actualWord === wordSelected){
+
+    gameChannel.send("Vous avez *gagné* ! Vous avez trouvé le mot **" + wordSelected + "**");
+    endGame();
+
+  } else {
+
+    gameChannel.send("Il vous reste : " + essai + str + "\nVoici le mot que vous devez trouvez : " + actualWord);
+
+  }
+
+}
+
+function endGame () {
+
+  isPlaying = false;
+  letterKnown = [''];
+  essai = 9;
+  player = "";
+  wordSelected = "";
+
+}
 
 client.login(process.env.BOT_TOKEN);
