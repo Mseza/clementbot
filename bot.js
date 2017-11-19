@@ -331,6 +331,7 @@ client.on('message', message => {
             wordSelected = dico[Math.floor(Math.random() * (dico.length))];
             isPlaying = true;
             player = message.author;
+            message.channel.send("Le jeu du pendu a commencé, tapez ! + une lettre pour proposé une lettre !");
             rewrite();
             endTurn();
 
