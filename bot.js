@@ -11,6 +11,7 @@ let essai = 9;
 let letterInWord = false;
 let yetLetter = false;
 let gameChannel = "";
+let prefixe = "!";
 
 client.on('ready', () => {
 
